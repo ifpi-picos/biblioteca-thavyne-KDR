@@ -1,0 +1,7 @@
+com\biblioteca\Usuario.class
+com\biblioteca\dao\LivroDAO.class
+com\biblioteca\model\Livro.class
+com\biblioteca\App.class
+com\biblioteca\Emprestimo.class
+com\biblioteca\Biblioteca.class
+com\biblioteca\dao\UsuarioDAO.class
