@@ -24,7 +24,7 @@ public class Biblioteca {
                 System.out.println("Banco de Dados conectado com sucesso!");
 
                 LivroDAO livroDAO = new LivroDAO(conexao);
-                Livro livro = new Livro("O Senhor dos Anéis", "J.R.R. Tolkien", 1, 1);
+                Livro livro = new Livro(1, "O Senhor dos Anéis", "J.R.R. Tolkien", 1, 1954);
                 System.out.println("Tentando inserir o livro...");
                 livroDAO.inserirLivro(livro);
                 System.out.println("Livro inserido com sucesso!");
@@ -74,11 +74,11 @@ public class Biblioteca {
     }
 
     private static void inicializarLivros() {
-        livros.add(new Livro("J.K. Rowling", "Harry Potter e a Pedra Filosofal", 1, 1997));
-        livros.add(new Livro("J.R.R. Tolkien", "O Senhor dos Anéis: A Sociedade do Anel", 2, 1954));
-        livros.add(new Livro("Emily Brontë", "O morro dos ventos uivantes", 1, 1847));
-        livros.add(new Livro("Antoine de Saint-Exupéry", "O Pequeno Príncipe", 1, 1943 ));
-        livros.add(new Livro("Stephen Chbosky", "As Vantagens de Ser Invisivel", 1, 1999));
+        livros.add(new Livro(1, "J.K. Rowling", "Harry Potter e a Pedra Filosofal", 1, 1997));
+        livros.add(new Livro(2, "J.R.R. Tolkien", "O Senhor dos Anéis: A Sociedade do Anel", 2, 1954));
+        livros.add(new Livro(3, "Emily Brontë", "O morro dos ventos uivantes", 1, 1847));
+        livros.add(new Livro(4, "Antoine de Saint-Exupéry", "O Pequeno Príncipe", 1, 1943 ));
+        livros.add(new Livro(5, "Stephen Chbosky", "As Vantagens de Ser Invisivel", 1, 1999));
 
         System.out.println("Biblioteca inicializada com alguns livros.");
     }
@@ -92,9 +92,10 @@ public class Biblioteca {
         int edicao = scanner.nextInt();
         System.out.print("Digite o ano de publicação: ");
         int anoPublicacao = scanner.nextInt();
-        scanner.nextLine(); // Consumir quebra de linha
+        scanner.nextLine(); 
 
-        livros.add(new Livro(autor, titulo, edicao, anoPublicacao));
+        int id = livros.size() + 1; 
+        livros.add(new Livro(id, autor, titulo, edicao, anoPublicacao));
         System.out.println("Livro cadastrado com sucesso!");
     }
 

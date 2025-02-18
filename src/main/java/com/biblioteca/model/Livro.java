@@ -7,7 +7,8 @@ public class Livro {
     private int edicao;
     private int anoPublicacao;
 
-    public Livro(String titulo, String autor, int edicao, int anoPublicacao) {
+    public Livro(int id,String titulo, String autor, int edicao, int anoPublicacao) {
+        this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.edicao = edicao;
