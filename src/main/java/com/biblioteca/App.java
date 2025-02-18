@@ -2,9 +2,12 @@ package com.biblioteca;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 
+import com.biblioteca.dao.EmprestimoDAO;
 import com.biblioteca.dao.LivroDAO;
 import com.biblioteca.dao.UsuarioDAO;
+import com.biblioteca.model.Emprestimo;
 import com.biblioteca.model.Livro;
 
 public class App {
@@ -27,6 +30,12 @@ public class App {
                 System.out.println("Tentando inserir o usuário...");
                 usuarioDAO.inserirUsuario(usuario);
                 System.out.println("Usuário inserido com sucesso!");
+
+                EmprestimoDAO emprestimoDAO = new EmprestimoDAO(conexao);
+                Emprestimo emprestimo = new Emprestimo(1, "40028922", 1, new Date(), null);
+                System.out.println("Tentando inserir o empréstimo...");
+                emprestimoDAO.inserirEmprestimo(emprestimo);
+                System.out.println("Empréstimo inserido com sucesso!");
 
             } else {
                 System.out.println("Banco de Dados não conectado!");

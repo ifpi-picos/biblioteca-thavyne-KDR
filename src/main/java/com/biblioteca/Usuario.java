@@ -33,8 +33,8 @@ public class Usuario {
         return new ArrayList<>(historicoEmprestimos); 
     }
 
-    public void adicionarAoHistorico(Emprestimo emprestimo) {
-        historicoEmprestimos.add(emprestimo);
+    public void adicionarAoHistorico(Emprestimo novoEmprestimo) {
+        historicoEmprestimos.add(novoEmprestimo);
     }
 
     @Override
@@ -58,4 +58,5 @@ public class Usuario {
                 ", email='" + email + '\'' +
                 '}';
     }
+
 }

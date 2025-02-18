@@ -1,13 +1,9 @@
 package com.biblioteca;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.biblioteca.dao.LivroDAO;
 import com.biblioteca.model.Livro;
 
 public class Biblioteca {
@@ -16,69 +12,46 @@ public class Biblioteca {
     private static final ArrayList<Emprestimo> emprestimos = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
 
-    @SuppressWarnings("CallToPrintStackTrace")
     public static void main(String[] args) {
-        try (Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Biblioteca", "postgres", "20061993Ty")) {
-            System.out.println("Tentando conectar ao banco de dados...");
-            if (conexao != null) {
-                System.out.println("Banco de Dados conectado com sucesso!");
+        inicializarLivros();
 
-                LivroDAO livroDAO = new LivroDAO(conexao);
-                Livro livro = new Livro(1, "O Senhor dos Anéis", "J.R.R. Tolkien", 1, 1954);
-                System.out.println("Tentando inserir o livro...");
-                livroDAO.inserirLivro(livro);
-                System.out.println("Livro inserido com sucesso!");
+        int opcao;
+        do {
+            System.out.println("\n==== Menu da Biblioteca ====");
+            System.out.println("1. Cadastrar Livro");
+            System.out.println("2. Listar Todos os Livros");
+            System.out.println("3. Listar Livros Emprestados");
+            System.out.println("4. Listar Livros Disponíveis");
+            System.out.println("5. Cadastrar Usuário");
+            System.out.println("6. Pegar Livro Emprestado");
+            System.out.println("7. Devolver Livro");
+            System.out.println("8. Listar Histórico de Empréstimos do Usuário");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
 
-                try (scanner) {
-                    
-                    inicializarLivros();
-                    
-                    int opcao;
-                    do {
-                        System.out.println("\n==== Menu da Biblioteca ====");
-                        System.out.println("1. Cadastrar Livro");
-                        System.out.println("2. Listar Todos os Livros");
-                        System.out.println("3. Listar Livros Emprestados");
-                        System.out.println("4. Listar Livros Disponíveis");
-                        System.out.println("5. Cadastrar Usuário");
-                        System.out.println("6. Pegar Livro Emprestado");
-                        System.out.println("7. Devolver Livro");
-                        System.out.println("8. Listar Histórico de Empréstimos do Usuário");
-                        System.out.println("0. Sair");
-                        System.out.print("Escolha uma opção: ");
-                        opcao = scanner.nextInt();
-                        scanner.nextLine();
-                        
-                        switch (opcao) {
-                            case 1 -> cadastrarLivro();
-                            case 2 -> listarTodosOsLivros();
-                            case 3 -> listarLivrosEmprestados();
-                            case 4 -> listarLivrosDisponiveis();
-                            case 5 -> cadastrarUsuario();
-                            case 6 -> pegarLivroEmprestado();
-                            case 7 -> devolverLivro();
-                            case 8 -> listarHistoricoUsuario();
-                            case 0 -> System.out.println("Encerrando o programa...");
-                            default -> System.out.println("Opção inválida, tente novamente.");
-                        }
-                    } while (opcao != 0);
-                }
-
-            } else {
-                System.out.println("Banco de Dados não conectado!");
+            switch (opcao) {
+                case 1 -> cadastrarLivro();
+                case 2 -> listarTodosOsLivros();
+                case 3 -> listarLivrosEmprestados();
+                case 4 -> listarLivrosDisponiveis();
+                case 5 -> cadastrarUsuario();
+                case 6 -> pegarLivroEmprestado();
+                case 7 -> devolverLivro();
+                case 8 -> listarHistoricoUsuario();
+                case 0 -> System.out.println("Encerrando o programa...");
+                default -> System.out.println("Opção inválida, tente novamente.");
             }
-
-        } catch (SQLException e) {
-            System.err.println("SQL Exception: " + e.getMessage());
-        }
+        } while (opcao != 0);
     }
 
     private static void inicializarLivros() {
         livros.add(new Livro(1, "J.K. Rowling", "Harry Potter e a Pedra Filosofal", 1, 1997));
         livros.add(new Livro(2, "J.R.R. Tolkien", "O Senhor dos Anéis: A Sociedade do Anel", 2, 1954));
         livros.add(new Livro(3, "Emily Brontë", "O morro dos ventos uivantes", 1, 1847));
-        livros.add(new Livro(4, "Antoine de Saint-Exupéry", "O Pequeno Príncipe", 1, 1943 ));
-        livros.add(new Livro(5, "Stephen Chbosky", "As Vantagens de Ser Invisivel", 1, 1999));
+        livros.add(new Livro(4, "Antoine de Saint-Exupéry", "O Pequeno Príncipe", 1, 1943));
+        livros.add(new Livro(5, "Stephen Chbosky", "As Vantagens de Ser Invisível", 1, 1999));
 
         System.out.println("Biblioteca inicializada com alguns livros.");
     }
@@ -92,9 +65,9 @@ public class Biblioteca {
         int edicao = scanner.nextInt();
         System.out.print("Digite o ano de publicação: ");
         int anoPublicacao = scanner.nextInt();
-        scanner.nextLine(); 
+        scanner.nextLine();
 
-        int id = livros.size() + 1; 
+        int id = livros.size() + 1;
         livros.add(new Livro(id, autor, titulo, edicao, anoPublicacao));
         System.out.println("Livro cadastrado com sucesso!");
     }
@@ -229,7 +202,7 @@ public class Biblioteca {
         }
 
         System.out.println("Histórico de Empréstimos:");
-        for (Emprestimo emprestimo : usuario.getHistoricoEmprestimos()) {
+        for (com.biblioteca.Emprestimo emprestimo : usuario.getHistoricoEmprestimos()) {
             System.out.println(emprestimo);
         }
     }
